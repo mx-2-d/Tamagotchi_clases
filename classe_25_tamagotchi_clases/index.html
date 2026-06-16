@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamagotchi</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4">
+    </script>
+
+    <style type="text/tailwindcss">
+        @import "tailwindcss";
+
+        @theme {
+            --color-charcoal: #555555;
+            --color-slime: #A7FC00;
+            --color-pumpkin: #C04000;
+            --color-azure: #0000B8;
+            --color-neon: #E3FF00;
+            --color-neon_p: #FF00CC;
+            --color-moss: #568203;
+            --color-honey: #E6A817;
+            --color-ghost: #F8F8FF;
+            --color-inferno: #A91101;
+            --color-alabaster: #E5E4E2;
+        }
+
+        @layer base {
+
+            input {
+                @apply block min-w-25 max-w-25 p-1 font-bold border-pumpkin border-2 text-pumpkin bg-slime hover:bg-pumpkin hover:text-slime;
+            }
+
+            dialog[open] {
+                @apply flex flex-col items-center fixed inset-0 m-auto w-11/12 max-w-md h-fit p-2 rounded-2xl border-4 border-pumpkin bg-slime shadow-2xl;
+            }
+
+            select {
+                @apply px-2 font-bold border-pumpkin border-2 text-pumpkin bg-slime hover:bg-pumpkin hover:text-slime block;
+            }
+
+            textarea {
+                @apply p-1 font-bold border-pumpkin border-2 text-pumpkin bg-slime hover:bg-pumpkin hover:text-slime block;
+            }
+
+            img {
+                @apply h-60 sm:h-110 block m-auto;
+            }
+            
+            p {
+                @apply sm:text-2xl md:text-3xl lg:text-4xl sm:pt-2 text-pumpkin font-bold;
+            }
+
+            span {
+                @apply break-all sm:text-2xl md:text-3xl lg:text-4xl text-pumpkin font-bold;
+            }
+            
+            section {
+                @apply block border-4 border-pumpkin p-2;
+            }
+            
+            
+        }
+
+    </style>
+
+</head>
+
+
+<body class="w-full h-full bg-ghost">
+
+    <div class="container min-h-120 sm:min-h-200 sm:w-4/5 mx-auto my-2 p-2 sm:p-4 bg-charcoal shadow-xl shadow-pumpkin">
+
+        <div class="mb-2 flex flex-row flex-wrap grow items-center justify-between">
+            <input id="volver" class="min-w-35 max-w-35 max-h-10 bg-pumpkin text-slime hover:bg-black border-slime border-2" id="volver" type="button" value="Volver a jugar">
+            <h1 class="block text-5xl mb-4 text-slime font-bold">Tamagotchi</h1>
+            <div class="invisible min-w-35 max-w-35 max-h-10"></div>
+        </div>
+
+        <section class="flex flex-row flex-wrap gap-5 grow justify-between mb-2" id="first">
+            <textarea class="flex-5 min-w-20" id="nombre" type="text" name="nombre" placeholder="Nombre"></textarea>
+            <textarea class="flex-7 min-w-20" name="personalidad" id="personalidad" placeholder="Describe su personalidad"></textarea>
+            <select class="flex-4 max-h-10" id="select">
+                <option value="" disabled selected>Seleccionar Tamagotchi</option>
+                <option value="Pixel">Pixel</option>
+                <option value="Peluche">Peluche</option>
+            </select>
+            <input class="flex-2 min-w-15 max-w-15 sm:min-w-20 sm:max-w-20 max-h-10" id="crear" type="button" value="Crear">
+        </section>
+
+
+        <section class="flex flex-row flex-wrap gap-5 mb-2">
+            <dialog id="dialog">
+                <p class="p-2 text-6xl text-center my-6">Game Over</p>
+                <input id="dialog_btn" class="p-2 max-w-100 sm:text-2xl md:text-3xl lg:text-4xl border-4 border-black text-center bg-pumpkin text-slime hover:bg-black" type="button" value="Volver a jugar">
+            </dialog>
+            
+            <div class="flex-2">
+                <img id="img" src="./img/pixel.jpg" alt="">
+                <p id="p_nombre" class="text-center text-slime">...</p>
+            </div>
+
+            <div class="flex-3 min-h-[400px] sm:min-h-[400px] md:min-h-[500px] lg:min-h-[600px] xl:min-h-[700px]">
+
+                <div>
+                    <p>
+                        <p>Felicidad: </p><span id="felicidad" class="py-3">⚪⚪⚪⚪⚪</span>
+                    </p>    
+                    <p>
+                        <p>Responsabilidad: </p><span id="responsabilidad" class="py-3">⚪⚪⚪⚪⚪</span>
+                    </p>    
+                    <p>
+                        <p>Limpieza: </p><span id="limpieza" class="py-3">⚪⚪⚪⚪⚪</span>
+                    </p>    
+                    <p>
+                        <p>Energia: </p><span id="energia" class="py-3">⚪⚪⚪⚪⚪</span>
+                    </p>    
+                    <p>
+                        <p>Personalidad: </p><span class="text-slime" id="p_personalidad" class="py-3">...</span>
+                    </p>    
+                </div>
+                
+            </div>
+        </section>
+
+        <section class="w-4/5 mx-auto flex flex-row flex-wrap grow gap-4 items-center justify-between">
+            <input class="flex-1" id="duchar" type="button" value="duchar">
+            <input class="flex-1" id="alimentar" type="button" value="alimentar">
+            <input class="flex-1" id="jugar" type="button" value="jugar">
+            <input class="flex-1" id="dormir" type="button" value="dormir">
+            <input class="flex-1" id="reprender" type="button" value="reprender">
+            <input class="flex-1" id="acariciar" type="button" value="acariciar">
+        </section>
+
+    </div>
+
+
+    <script type="module" src="tamagotchi-app.js"></script>
+
+</body>
+
+</html>
+
+
+<!-- 
+recordar usar flex column para un diseño así que puede ser más facil
+-->
